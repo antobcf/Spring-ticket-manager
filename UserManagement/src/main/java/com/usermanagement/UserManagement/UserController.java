@@ -2,7 +2,14 @@ package com.usermanagement.UserManagement;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +28,36 @@ public class UserController {
     @Autowired
     private UserRepository repo;
 
-    @GetMapping("")
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private CustomUserDetailsService customUserDetailsService;
+
+	@Autowired
+	private JwtUtil jwtTokenUtil;
+
+	@CrossOrigin(origins = "http://localhost:9001")
+	@PostMapping("/log")
+	public ResponseEntity<?> createLoginToken(@RequestBody User user) throws Exception {
+		try {
+			authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+			);
+		} catch(BadCredentialsException e) {
+			throw new Exception("Incorrect username or password", e);
+		}
+
+		final UserDetails userDetails = customUserDetailsService
+				.loadUserByUsername(user.getUsername());
+
+		final String jwt = jwtTokenUtil.generateToken(userDetails);
+
+		return ResponseEntity.ok(new AuthResponse(jwt));
+
+	}
+
+    @GetMapping("/list")
     public List<User> getAllUsers(/*Model model*/) {
         List<User> users = repo.findAll();
         //model.addAttribute("users", users);
@@ -44,10 +80,7 @@ public class UserController {
     public List<User> getUSerNotAdmin() {
         List<User> users = repo.findNotAdmin();
         return users;
-    }
-
-    //@PostMapping("/login")
-    
+    }  
 
     @PostMapping("/register")
     public User createAccount(@RequestBody User user) {
