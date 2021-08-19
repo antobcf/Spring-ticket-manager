@@ -24,12 +24,12 @@ public class UserRepositoryTest {
     @Test
     public void testCreteUser() {
         User user = new User();
-        user.setUsername("tyto");
-        user.setPassword("qwerty");
-        user.setFirstname("aaaa");
-        user.setLastname("qwaaae");
-        user.setEmail("trevil@gmail.com");
-        user.setRole("user");
+        user.setUsername("paolo");
+        user.setPassword("password");
+        user.setFirstname("paolo");
+        user.setLastname("rossi");
+        user.setEmail("paolo@gmail.com");
+        user.setRole("employee");
 
         User savedUser = repo.save(user);
 
@@ -40,7 +40,7 @@ public class UserRepositoryTest {
 
     @Test
     public void testFindUserByUsername() {
-        String username = "aaaaaa";
+        String username = "paolo";
 
         User user = repo.findByUsername(username);
 

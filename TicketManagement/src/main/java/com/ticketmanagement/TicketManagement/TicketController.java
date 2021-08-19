@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @CrossOrigin(origins = "http://localhost:9001")
 @RequestMapping("/ticket")
@@ -119,7 +118,6 @@ public class TicketController {
         mailMessage.setText("Your ticket "+ticket.getTicket_id()+" has been approved. You will be notified when it will be closed.");
 
         mailSender.send(mailMessage);
-        
     }
 
     @CrossOrigin(origins = "http://localhost:9001")
@@ -182,5 +180,4 @@ public class TicketController {
 
         mailSender.send(mailMessage);
     }
-
 }

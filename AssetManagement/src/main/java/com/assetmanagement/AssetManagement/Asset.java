@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "assets")
 public class Asset {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long asset_id;
