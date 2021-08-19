@@ -3,6 +3,8 @@ package com.usermanagement.UserManagement;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,10 +23,31 @@ public class UserController {
     @Autowired
     private UserRepository repo;
 
-    @GetMapping("/list")
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @GetMapping("/")
     public List<User> getAllUsers() {
         List<User> users = repo.findAll();
         return users;
+    }
+
+    @PostMapping("/authenticate")
+    public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+        
+        try {
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+            );
+        } catch(Exception ex) {
+            throw new Exception("invalid username or password");
+        }
+
+        return jwtUtil.generateToken(authRequest.getUsername());
+
     }
 
     @GetMapping("/{username}")
