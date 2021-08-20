@@ -69,11 +69,14 @@ public class UserController {
     }  
 
     @PostMapping("/register")
-    public User createAccount(@RequestBody User user) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encodedPassword = encoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-        return repo.save(user);
+    public void createAccount(@RequestBody User user) {
+        User existingUser = repo.findByUsername(user.getUsername());
+        if(existingUser == null) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String encodedPassword = encoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+            repo.save(user);
+        }
     }
     
     @DeleteMapping("/delete/{username}")
