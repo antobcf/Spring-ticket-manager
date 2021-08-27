@@ -3,9 +3,9 @@ package com.usermanagement.UserManagement;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.security.authentication.AuthenticationManager;
+// import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +23,11 @@ public class UserController {
     @Autowired
     private UserRepository repo;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    // @Autowired
+    // private JwtUtil jwtUtil;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    // @Autowired
+    // private AuthenticationManager authenticationManager;
 
     @GetMapping("/")
     public List<User> getAllUsers() {
@@ -35,21 +35,22 @@ public class UserController {
         return users;
     }
 
-    @PostMapping("/authenticate")
-    public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
+    // @PostMapping("/authenticate")
+    // public String generateToken(@RequestBody AuthRequest authRequest) throws Exception {
         
-        try {
-            authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
-            );
-        } catch(Exception ex) {
-            throw new Exception("invalid username or password");
-        }
+    //     try {
+    //         authenticationManager.authenticate(
+    //             new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+    //         );
+    //     } catch(Exception ex) {
+    //         throw new Exception("invalid username or password");
+    //     }
 
-        return jwtUtil.generateToken(authRequest.getUsername());
+    //     return jwtUtil.generateToken(authRequest.getUsername());
 
-    }
+    // }
 
+    @CrossOrigin(origins = "http://localhost:9001")
     @GetMapping("/{username}")
     public User getUserByUsername(@PathVariable("username") String username) {
         User utente = repo.findByUsername(username);
@@ -72,9 +73,9 @@ public class UserController {
     public void createAccount(@RequestBody User user) {
         User existingUser = repo.findByUsername(user.getUsername());
         if(existingUser == null) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            String encodedPassword = encoder.encode(user.getPassword());
-            user.setPassword(encodedPassword);
+            // BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            // String encodedPassword = encoder.encode(user.getPassword());
+            // user.setPassword(encodedPassword);
             repo.save(user);
         }
     }

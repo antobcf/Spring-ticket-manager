@@ -1,4 +1,4 @@
-package com.ticketmanagement.TicketManagement;
+package com.ticketmanagement.ticketmanagement;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

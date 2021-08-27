@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ticketmanagement</groupId>
-	<artifactId>TicketManagement</artifactId>
+	<artifactId>ticketmanagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>TicketManagement</name>
+	<name>ticketmanagement</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
@@ -50,6 +50,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>spring-boot-docker</finalName>
 	</build>
 
 </project>

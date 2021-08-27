@@ -1,4 +1,4 @@
-package com.ticketmanagement.TicketManagement;
+package com.ticketmanagement.ticketmanagement;
 
 import java.util.List;
 

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.assetmanagement</groupId>
-	<artifactId>AssetManagement</artifactId>
+	<artifactId>assetmanagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>AssetManagement</name>
+	<name>assetmanagement</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
@@ -45,6 +45,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>spring-boot-docker-asset</finalName>
 	</build>
 
 </project>
