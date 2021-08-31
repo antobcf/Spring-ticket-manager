@@ -1,4 +1,4 @@
 FROM openjdk:11
-ADD target/user-docker.jar user-docker.jar
-ENTRYPOINT ["java","-jar","user-docker.jar"]
-EXPOSE 8081
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
