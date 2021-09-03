@@ -1,4 +1,4 @@
 FROM openjdk:11
-EXPOSE 8082
-ADD target/spring-boot-docker-asset.jar spring-boot-docker-asset.jar
-ENTRYPOINT [ "java", "-jar", "/spring-boot-docker-asset.jar"]
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
